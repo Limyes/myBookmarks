@@ -2,10 +2,11 @@
 a{text-decoration: none;}
 main{text-align:center;background:url(../images/bg3.jpg) center center no-repeat;background-size:98% 96%;display: flex;justify-content: center;align-items: center;height: 100vh;}
 #maincontent{display:inline-block;background:rgba(255,255,255,0.5);border-radius:10px;}
-kbd{position:relative;border:1px solid #eee;width:50px;height:50px;line-height:35px;font-size:16px;display:inline-block;text-transform: uppercase;color:#fff;background-color:#F67475;border-radius:5px;margin:0px 10px;}
+kbd{position:relative;border:1px solid #FC9D9A;width:50px;height:50px;line-height:35px;font-size:16px;box-shadow:0 0 0 1px #FC9D9A,0 0 0 2px #F08080,0 2px 0 2px #CD5C5C;display:inline-block;text-transform: uppercase;color:#fff;background-color:#F67475;border-radius:5px;margin:0px 10px;}
 #maincontent div:nth-child(2){margin-left:25px;}
 #maincontent div:nth-child(3){margin-left:50px;}
-kbd button{display:none;position:absolute;bottom:0;right:0;border:none;background-color:#fff;border-radius:2px;width:15px;height:15px;color:#F67475;outline:0;}
-kbd:hover button{display:inline-block;}
-kbd:hover{background-color:rgba(246,116,117,0.5);}
+kbd button{display:none;position:absolute;bottom:0;right:1px;border:none;background-color:#fff;border-radius:2px;width:15px;height:15px;color:#F67475;outline:0;}
+kbd:hover button,kbd:hover img{display:inline-block;}
+/* kbd:hover{background-color:rgba(246,116,117,0.5);} */
 .row{margin:20px 20px;}
+kbd img{width:15px;height:15px;position:absolute;left:1px;bottom:0px;border-radius:2px;display:none}

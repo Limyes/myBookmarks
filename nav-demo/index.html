@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>这是一个少女心的导航</title>
-        <link rel="stylesheet" href="css/style.css?v=1">
+        <link rel="stylesheet" href="css/style.css?v=2">
         <script src="js/main.js"></script>
     </head>
     <body>
@@ -21,10 +21,10 @@
         'length':4 
     }
     var hash={
-        '1':'12306.cn',
+        '1':'www.12306.cn',
         'q':'qq.com',
         'w':'weibo.com', 
-        'e':'explainshell.com',
+        'e':'www.explainshell.com',
         'r':'rscard.px-lab.com',
         't':'tianya.cn', 
         'y':'youtube.com',
@@ -63,9 +63,16 @@
         var index2=0;
         while(index2<row['length']){
             kbdtag=document.createElement('kbd');
-            kbdtag.textContent=row[index2];
+            kbdtext=document.createElement('span');
+            kbdtext.textContent=row[index2];
             butt=document.createElement('button');
             butt.id=row[index2];
+            kbdimg=document.createElement('img');
+            if(hash[row[index2]]){
+                kbdimg.src='http://'+hash[row[index2]]+'/favicon.ico';
+            }else{
+                kbdimg.src='images/icon.png';
+            }
             butt.onclick=function(butcon){
                 butkey=butcon['target']['id'];
                 var newweb=prompt('输入新网址');
@@ -73,6 +80,8 @@
                 localStorage.setItem('newhash',JSON.stringify(hash));
             }
             butt.textContent="E";
+            kbdtag.appendChild(kbdtext);
+            kbdtag.appendChild(kbdimg);
             kbdtag.appendChild(butt);
             div1.appendChild(kbdtag);
             index2=index2+1;
