@@ -13,48 +13,81 @@
         <footer></footer>
     </body>
     <script>
-        // 初始化数据
-        var keys={
-            '0':{0:'1',1:'2',2:'3',3:'4',4:'5',5:'6',6:'7',7:'8',8:'9',9:'0',10:'@','length':11},
-            '1':{0:'q',1:'w',2:'e',3:'r',4:'t',5:'y',6:'u',7:'i',8:'o',9:'p','length':10},
-            '2':{0:'a',1:'s',2:'d',3:'f',4:'g',5:'h',6:'j',7:'k',8:'l','length':9},
-            '3':{0:'z',1:'x',2:'c',3:'v',4:'b',5:'n',6:'m','length':7},
-            'length':4 
-        }
-        var hash={
-            '1':'www.12306.cn',
-            'q':'qq.com',
-            'w':'weibo.com', 
-            'e':'www.explainshell.com',
-            'r':'rscard.px-lab.com',
-            't':'tianya.cn', 
-            'y':'youtube.com',
-            'u':undefined,
-            'i':'iconfont.cn', 
-            'o':undefined,
-            'p':undefined,
-            'a':'amazon.cn', 
-            's':'stackoverflow.com',
-            'd':'donghua.dmzj.com',
-            'f':undefined, 
-            'g':'github.com',
-            'h':'hao123.com',
-            'j':'juejin.im', 
-            'k':undefined,
-            'l':'limyes.github.io',
-            'z':'zhihu.com', 
-            'x':'xiedaimala.com',
-            'c':'css-tricks.com',
-            'v':'visualgo.net', 
-            'b':'bilibili.com',
-            'n':'note.youdao.com',
-            'm':'music.163.com'
-        };
-        hashInlocalStorage = getLocalStorage('newhash');
-        if(hashInlocalStorage){
-            hash=hashInlocalStorage;
-        }
+        // 1.初始化数据
+        var hashA=init();
+        var keys=hashA['keys'];
+        var hash=hashA['hash'];
 
+        // 2.生成键盘
+        generateKeyboard(keys,hash);
+        // 3.监听键盘事件
+        listenToUser(hash);
+        
+        // 工具函数
+        // 初始化数据
+        function init(){
+           var keys={
+                '0':{0:'1',1:'2',2:'3',3:'4',4:'5',5:'6',6:'7',7:'8',8:'9',9:'0',10:'@','length':11},
+                '1':{0:'q',1:'w',2:'e',3:'r',4:'t',5:'y',6:'u',7:'i',8:'o',9:'p','length':10},
+                '2':{0:'a',1:'s',2:'d',3:'f',4:'g',5:'h',6:'j',7:'k',8:'l','length':9},
+                '3':{0:'z',1:'x',2:'c',3:'v',4:'b',5:'n',6:'m','length':7},
+                'length':4 
+            }
+            var hash={
+                '1':'www.12306.cn',
+                'q':'qq.com',
+                'w':'weibo.com',
+                'e':'explainshell.com',
+                'r':'rscard.px-lab.com',
+                't':'tianya.com', 
+                'y':'youtube.com',
+                'i':'iconfont.cn', 
+                'o':'opera.com',
+                'a':'amazon.cn', 
+                's':'stackoverflow.com',
+                'd':'donghua.dmzj.com',
+                'g':'github.com',
+                'h':'hao123.com',
+                'j':'juejin.im', 
+                'l':'limyes.github.io',
+                'z':'zhihu.com', 
+                'x':'xiedaimala.com',
+                'c':'css-tricks.com',
+                'v':'visualgo.net', 
+                'b':'bilibili.com',
+                'n':'note.youdao.com',
+                'm':'music.163.com'
+            }; 
+            hashInlocalStorage = getLocalStorage('newhash');
+            if(hashInlocalStorage){
+                hash=hashInlocalStorage;
+            }
+
+            return {'keys':keys,'hash':hash}
+        }
+        // 获取缓存
+        function getLocalStorage(lscontent){
+            return JSON.parse(localStorage.getItem(lscontent)||'null');
+        }
+        // 创建键盘
+        function generateKeyboard(keys,hash){
+            for(index=0;index<keys['length'];index++){
+                div1=tag('div',{'className':'row'});
+                maincontent.appendChild(div1);
+                var row=keys[index];
+                for(index2=0;index2<row['length'];index2++){
+                    kbdtag=tag('kbd');
+                    kbdtext=tag('span',{'textContent':row[index2]});
+                    var button=createButt(row[index2]);
+                    var kbdimgc=creatImg(hash[row[index2]]);
+                    kbdtag.appendChild(kbdtext);
+                    kbdtag.appendChild(kbdimgc);
+                    kbdtag.appendChild(button);
+                    div1.appendChild(kbdtag); 
+                }
+            }
+        }
+        // 创建标签属性
         function tag(tagName,attributes){
             var element=document.createElement(tagName);
             for(var key in attributes){
@@ -62,58 +95,44 @@
             }
             return element;
         }
-        // 生成键盘
-        var index=0;
-        while(index<keys['length']){
-            div1=document.createElement('div');
-            div1.className="row";
-            maincontent.appendChild(div1);
-            var row=keys[index];
-            var index2=0;
-            while(index2<row['length']){
-                kbdtag=document.createElement('kbd');
-                kbdtext=document.createElement('span');
-                kbdtext.textContent=row[index2];
-                butt=document.createElement('button');
-                butt.id=row[index2];
-                kbdimg=document.createElement('img');
-                if(hash[row[index2]]){
-                    kbdimg.src='http://'+hash[row[index2]]+'/favicon.ico';
-                }else{
-                    kbdimg.src='images/icon.png';
-                }
+         // 创建button
+        function createButt(id){
+            var butt=tag('button',{'id':id,'textContent':'E'});
+            butt.onclick=function(butcon){
+                butt2=butcon['target'];
+                kbdimg2=butt2.previousSibling;
+                butkey=butt2['id'];
+                var newweb=prompt('输入新网址');
+                hash[butkey]=newweb;
+                kbdimg2.src='http://'+newweb+'/favicon.ico';
                 kbdimg.onerror=function(imgcontent){
                     imgcontent.target.src='images/icon.png';
                 }
-                butt.onclick=function(butcon){
-                    butt2=butcon['target'];
-                    kbdimg2=butt2.previousSibling;
-                    butkey=butt2['id'];
-                    var newweb=prompt('输入新网址');
-                    hash[butkey]=newweb;
-                    kbdimg2.src='http://'+newweb+'/favicon.ico';
-                    kbdimg.onerror=function(imgcontent){
-                        imgcontent.target.src='images/icon.png';
-                    }
-                    localStorage.setItem('newhash',JSON.stringify(hash));
-                }
-                butt.textContent="E";
-                kbdtag.appendChild(kbdtext);
-                kbdtag.appendChild(kbdimg);
-                kbdtag.appendChild(butt);
-                div1.appendChild(kbdtag);
-                index2=index2+1;
+                localStorage.setItem('newhash',JSON.stringify(hash));
             }
-            index=index+1;
+            return butt;
         }
+        // 创建图标
+        function creatImg(domain){
+            kbdimg=tag('img');
+            if(domain){
+                kbdimg.src='http://'+domain+'/favicon.ico';
+            }else{
+                kbdimg.src='images/icon.png';
+            }
+            kbdimg.onerror=function(imgcontent){
+                imgcontent.target.src='images/icon.png';
+            }
+            return kbdimg;
+        }
+        
         // 监听键盘事件
-        document.onkeypress=function(kbjson){
-            var kbcontent=kbjson['key'];
-            var website=hash[kbcontent];
-            window.open('https://'+website,"_blank");
-        }
-        function getLocalStorage(lscontent){
-            return JSON.parse(localStorage.getItem(lscontent)||'null');
+        function listenToUser(hash){
+            document.onkeypress=function(kbjson){
+                var kbcontent=kbjson['key'];
+                var website=hash[kbcontent];
+                window.open('https://'+website,"_blank");
+            }  
         }
     </script>
 </html>
