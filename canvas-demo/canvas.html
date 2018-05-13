@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <meta name="viewport" content="width=device-width,user-scalable=no,initial=1.0,maxinum-scale=1.0,mininum-scale=1.0">
+        <title>canvas使用</title>
+        <link rel="stylesheet" href="canvas.css">
+        <script src="//at.alicdn.com/t/font_664548_vbo4j3sc9ajg7gb9.js"></script>
+    </head>
+    <body>
+        <canvas id="canvas" width=300 height=300></canvas>
+        <div id="actions" class="actions">
+            <svg class="icon active" id="pen">
+                <use xlink:href="#icon-pen"></use>
+            </svg>
+            <svg class="icon" id="eraser">
+                <use xlink:href="#icon-eraser"></use>
+            </svg>
+        </div>
+        <ol class="colors">
+            <li id="red" class="red active"></li>
+            <li id="yellow" class="yellow"></li>
+            <li id="blue" class="blue"></li>
+        </ol>
+        <ol class="sizes">
+                <li id="thin" class="thin active"></li>
+                <li id="thick" class="thick"></li>
+            </ol>
+        <script>
+            var canvas=document.getElementById('canvas');
+            autoSetCanvas(canvas);
+            
+            var canvasContext=canvas.getContext('2d');
+            listenUser(canvas);
+            // 画长方形
+            // canvasContext.strokeStyle='white';
+            // canvasContext.strokeRect(0,0,100,100);
+            // canvasContext.fillStyle='red';
+            // canvasContext.fillRect(0,0,100,100);  
+            // 画三角形
+            // canvasContext.fillStyle='red';
+            // canvasContext.beginPath();
+            // canvasContext.moveTo(240,240);
+            // canvasContext.lineTo(300,240);
+            // canvasContext.lineTo(300,300);
+            // canvasContext.fill();
+            // 画圆
+            var eraserEnabled=false;
+            eraser.onclick=function(){
+                eraserEnabled=true;
+                eraser.classList.add('active');
+                pen.classList.remove('active');
+            }
+            pen.onclick=function(){
+                eraserEnabled=false;
+                pen.classList.add('active');
+                eraser.classList.remove('active');
+            }
+            red.onclick=function(){
+                canvasContext.strokeStyle="red";
+                red.classList.add('active');
+                yellow.classList.remove('active');
+                blue.classList.remove('active');
+            }
+            yellow.onclick=function(){
+                canvasContext.strokeStyle="yellow";
+                yellow.classList.add('active');
+                red.classList.remove('active');
+                blue.classList.remove('active');
+            }
+            blue.onclick=function(){
+                canvasContext.strokeStyle="blue";
+                blue.classList.add('active');
+                yellow.classList.remove('active');
+                red.classList.remove('active');
+            }
+            function drawLine(x1,y1,x2,y2){
+                canvasContext.beginPath();
+                canvasContext.moveTo(x1,y1);
+                canvasContext.lineWidth=5;
+                canvasContext.lineTo(x2,y2);
+                canvasContext.stroke();
+                canvasContext.closePath();
+
+            }
+            function drawCircle(x,y,radius){
+                canvasContext.beginPath();
+                canvasContext.arc(150,150,20,0,Math.PI*2);
+                canvasContext.fill();
+            }
+            function autoSetCanvas(canvas){
+                setCanvasSize();
+                window.onresize=function(){
+                    setCanvasSize();
+                }
+                function setCanvasSize(){
+                    var pageWidth=document.documentElement.clientWidth;
+                    var pageHeight=document.documentElement.clientHeight;
+                    canvas.width=pageWidth;
+                    canvas.height=pageHeight;
+                }
+            }
+
+            function listenUser(canvas){
+                var using=false;
+                var lastPoint={'x':undefined,'y':undefined};
+                if(document.body.ontouchstart!==undefined){
+                    canvas.ontouchstart=function(nowloc){
+                        var x=nowloc.touches[0].clientX;
+                        var y=nowloc.touches[0].clientY;
+                        using=true;
+                        if(eraserEnabled){
+                            canvasContext.clearRect(x-5,y-5,10,10);
+                        }else{
+                            lastPoint={'x':x,'y':y};
+                        }
+                    }
+                    canvas.ontouchmove=function(nowloc){
+                        var x=nowloc.touches[0].clientX;
+                        var y=nowloc.touches[0].clientY;
+                        if(!using){return}
+                        if(eraserEnabled){
+                            canvasContext.clearRect(x-5,y-5,10,10);
+                        }else{
+                            var newPoint={'x':x,'y':y};
+                            drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y);
+                            lastPoint=newPoint;
+                        }
+                        
+                    }
+                    canvas.ontouchend=function(nowloc){
+                        using=false;
+                    }
+                    
+                }else{
+                    canvas.onmousedown=function(nowloc){
+                        var x=nowloc.clientX;
+                        var y=nowloc.clientY;
+                        using=true;
+                        if(eraserEnabled){
+                            canvasContext.clearRect(x-5,y-5,10,10);
+                        }else{
+                            lastPoint={'x':x,'y':y};
+                        }
+                    }
+                    canvas.onmousemove=function(nowloc){
+                        var x=nowloc.clientX;
+                        var y=nowloc.clientY;
+                        if(!using){return}
+                        if(eraserEnabled){
+                            canvasContext.clearRect(x-5,y-5,10,10);
+                        }else{
+                            var newPoint={'x':x,'y':y};
+                            drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y);
+                            lastPoint=newPoint;
+                        }
+                        
+                    }
+                    canvas.onmouseup=function(nowloc){
+                        using=false;
+                    }
+                }  
+            }
+        </script>
+    </body>
+</html>
