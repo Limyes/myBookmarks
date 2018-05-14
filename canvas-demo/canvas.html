@@ -69,7 +69,7 @@
             downCanvas.onclick=function(){
                 var imgurl=canvas.toDataURL();
                 var taga=document.createElement("a");
-                body.appendChild(taga);
+                document.body.appendChild(taga);
                 taga.target="_blank";
                 taga.download=imgurl;
                 taga.onclick();

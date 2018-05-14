@@ -58,7 +58,7 @@ body{
     background-color:blue;
 }
 .colors li.active{
-    box-shadow:0 0 0 2px #ccc;
+    box-shadow:0 0 2px 2px #c8c8cc;
     transform:scale(1.2);
     transition: all 0.3s;
 }
