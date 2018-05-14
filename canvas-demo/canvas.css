@@ -26,8 +26,8 @@ body{
     width:20px;
     height:20px;
     transition: all 0.3s;
-    margin:0 10px;
-    padding:5px;
+    margin:0 0 0 10px;
+    padding:5px 0;
 }
 .actions svg.active{
     transform:scale(1.2);
@@ -45,6 +45,9 @@ body{
     margin:10px 0;
     transition: all 0.3s;
 }
+.colors li.black{
+    background-color:black;
+}
 .colors li.red{
     background-color:red;
 }
@@ -58,4 +61,7 @@ body{
     box-shadow:0 0 0 2px #ccc;
     transform:scale(1.2);
     transition: all 0.3s;
+}
+.sizes{
+    position:fixed;
 }
