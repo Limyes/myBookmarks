@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset='utf-8'>
-        <meta name="viewport" content="width=device-width,user-scalable=no,initial=1.0,maxinum-scale=1.0,mininum-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
         <title>我的画板</title>
         <link rel="stylesheet" href="canvas.css?v=1">
         <script src="//at.alicdn.com/t/font_664548_77req9we5clbx1or.js"></script>
@@ -32,7 +32,7 @@
         <ol class="sizes">
                 <li id="thin" class="thin active"></li>
                 <li id="thick" class="thick"></li>
-            </ol>
+        </ol>
         <script>
             var canvas=document.getElementById('canvas');
             autoSetCanvas(canvas);
@@ -139,7 +139,7 @@
                         var y=nowloc.touches[0].clientY;
                         using=true;
                         if(eraserEnabled){
-                            canvasContext.clearRect(x-5,y-5,10,10);
+                            canvasContext.clearRect(x-3,y-3,6,6);
                         }else{
                             lastPoint={'x':x,'y':y};
                         }
@@ -149,7 +149,7 @@
                         var y=nowloc.touches[0].clientY;
                         if(!using){return}
                         if(eraserEnabled){
-                            canvasContext.clearRect(x-5,y-5,10,10);
+                            canvasContext.clearRect(x-3,y-3,6,6);
                         }else{
                             var newPoint={'x':x,'y':y};
                             drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y);
@@ -167,7 +167,7 @@
                         var y=nowloc.clientY;
                         using=true;
                         if(eraserEnabled){
-                            canvasContext.clearRect(x-5,y-5,10,10);
+                            canvasContext.clearRect(x-3,y-3,6,6);
                         }else{
                             lastPoint={'x':x,'y':y};
                         }
@@ -177,7 +177,7 @@
                         var y=nowloc.clientY;
                         if(!using){return}
                         if(eraserEnabled){
-                            canvasContext.clearRect(x-5,y-5,10,10);
+                            canvasContext.clearRect(x-3,y-3,6,6);
                         }else{
                             var newPoint={'x':x,'y':y};
                             drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y);
