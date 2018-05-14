@@ -152,7 +152,7 @@
                         var y=nowloc.touches[0].clientY;
                         using=true;
                         if(eraserEnabled){
-                            canvasContext.clearRect(x-3,y-3,6,6);
+                            canvasContext.clearRect(x-5,y-5,10,10);
                         }else{
                             lastPoint={'x':x,'y':y};
                         }
@@ -162,13 +162,12 @@
                         var y=nowloc.touches[0].clientY;
                         if(!using){return}
                         if(eraserEnabled){
-                            canvasContext.clearRect(x-3,y-3,6,6);
+                            canvasContext.clearRect(x-5,y-5,10,10);
                         }else{
                             var newPoint={'x':x,'y':y};
                             drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y);
                             lastPoint=newPoint;
-                        }
-                        
+                        }  
                     }
                     canvas.ontouchend=function(nowloc){
                         using=false;
@@ -180,7 +179,7 @@
                         var y=nowloc.clientY;
                         using=true;
                         if(eraserEnabled){
-                            canvasContext.clearRect(x-3,y-3,6,6);
+                            canvasContext.clearRect(x-5,y-5,10,10);
                         }else{
                             lastPoint={'x':x,'y':y};
                         }
@@ -190,13 +189,12 @@
                         var y=nowloc.clientY;
                         if(!using){return}
                         if(eraserEnabled){
-                            canvasContext.clearRect(x-3,y-3,6,6);
+                            canvasContext.clearRect(x-5,y-5,10,10);
                         }else{
                             var newPoint={'x':x,'y':y};
                             drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y);
                             lastPoint=newPoint;
-                        }
-                        
+                        }  
                     }
                     canvas.onmouseup=function(nowloc){
                         using=false;
