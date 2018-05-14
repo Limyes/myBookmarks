@@ -63,15 +63,16 @@
                 pen.classList.add('active');
                 eraser.classList.remove('active');
             }
-            clearCanvas.onclick=function(canvas){
+            clearCanvas.onclick=function(){
                 canvasContext.clearRect(0,0,canvas.width,canvas.height);
             }
             downCanvas.onclick=function(){
-                var imgurl=canvas.toDataURL();
+                var imgurl=canvas.toDataURL("image/png");
                 var taga=document.createElement("a");
                 document.body.appendChild(taga);
+                taga.href=imgurl;
                 taga.target="_blank";
-                taga.download=imgurl;
+                taga.download='newImage';
                 taga.click();
             }
             black.onclick=function(){
