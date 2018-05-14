@@ -30,8 +30,8 @@
             <li id="blue" class="blue"></li>
         </ol>
         <ol class="sizes">
-                <li id="thin" class="thin active"></li>
-                <li id="thick" class="thick"></li>
+            <li id="thin" class="thin active"></li>
+            <li id="thick" class="thick"></li>
         </ol>
         <script>
             var canvas=document.getElementById('canvas');
@@ -103,10 +103,23 @@
                 yellow.classList.remove('active');
                 red.classList.remove('active');
             }
-            function drawLine(x1,y1,x2,y2){
+            thin.onclick=function(){
+                var lineWidth=3;
+                canvasContext.lineWidth=lineWidth;
+                thin.classList.add('active');
+                thick.classList.remove('active');
+            }
+            thick.onclick=function(){
+                var lineWidth=6;
+                canvasContext.lineWidth=lineWidth
+                console.log(lineWidth);
+                thick.classList.add('active');
+                thin.classList.remove('active');
+            }
+            function drawLine(x1,y1,x2,y2,lineWidth){
                 canvasContext.beginPath();
                 canvasContext.moveTo(x1,y1);
-                canvasContext.lineWidth=5;
+                canvasContext.lineWidth=lineWidth;
                 canvasContext.lineTo(x2,y2);
                 canvasContext.stroke();
                 canvasContext.closePath();
