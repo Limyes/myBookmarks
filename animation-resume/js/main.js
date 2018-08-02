@@ -39,7 +39,7 @@ var result1 = `/*
   transition: all 1s;
 }
 html{
-  background: rgb(245,245,245);
+  background:#444;
 }
 #code{
   border: 1px solid #ccc;
@@ -56,7 +56,6 @@ html{
 #code{
   animation: breath 0.5s infinite alternate-reverse;
 }
-
 /* 现在正式开始 */
 
 /* 我需要一张白纸 */
@@ -71,8 +70,6 @@ html{
 #paper > .content {
  display: block;
 }
-
-/* 于是我就可以在白纸上写字了，请看右边 */
 `
 
 var result2 = `

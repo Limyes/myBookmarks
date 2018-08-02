@@ -1,25 +1,25 @@
 *{margin: 0;padding: 0;}
 *{box-sizing: border-box;}
 .token.selector{
-  color: black;
+  color: #66D9EF;
 }
 .token.property{
-  color: black;
+  color: #66D9EF;
 }
 .token.function{
-  color: black;
+  color: #66D9EF;
 }
 #code-wrapper{
   padding: 16px;
   height: 100vh;
   display: flex;
+  color:#66D9EF;
 }
 #code{
   width: 100%;
   overflow: hidden;
 }
 #paper{
-  background: #444; 
   padding: 16px;
   position: fixed; 
   width: 50%; 
@@ -45,9 +45,9 @@
 }
 @keyframes breath{
   0%{
-    box-shadow: 0 0 10px rgba(0,0,0,1)
+    box-shadow: 0 0 10px rgba(255,255,255,1)
   }
   100%{
-    box-shadow: 0 0 10px rgba(0,0,0,0.2)
+    box-shadow: 0 0 10px rgba(255,255,255,0.2)
   }
 }
