@@ -1,5 +1,5 @@
-
-function writeCode(prefix, code, fn){
+/*把code写到#code和style标签里*/
+function writeCss(prefix, code, fn){
   let domCode = document.querySelector('#code')
   let n = 0
   let id = setInterval(() => {
@@ -27,22 +27,21 @@ function writeMarkdown(markdown, fn){
   }, 10)
 }
 
-var result1 = `/* 
-*你好，我是Limyes
-*我将以动画的形式介绍我自己
-*只用文字介绍太单调了
-*我就用代码来介绍吧
-*首先准备一些样式
+var css1 = `/* 
+ * 面试官你好，我是XXX
+ * 只用文字作做我介绍太单调了
+ * 我就用代码来介绍吧
+ * 首先准备一些样式
  */
 
 *{
   transition: all 1s;
 }
 html{
-  background: rgb(245,245,245);
+  background: #eee;
 }
 #code{
-  border: 1px solid #ccc;
+  border: 1px solid #aaa;
   padding: 16px;
 }
 
@@ -62,9 +61,7 @@ html{
 /* 我需要一张白纸 */
 
 #code-wrapper{
-  width: 50%; 
-  left: 0; 
-  position: fixed; 
+  width: 50%; left: 0; position: fixed; 
   height: 100%;
 }
 
@@ -75,7 +72,7 @@ html{
 /* 于是我就可以在白纸上写字了，请看右边 */
 `
 
-var result2 = `
+var css2 = `
 /* 接下来用一个优秀的库 marked.js
  * 把 Markdown 变成 HTML
  */
@@ -83,39 +80,86 @@ var result2 = `
 
 
 `
-var mk= `
-### 自我介绍
+var md = `
+# 自我介绍
 
-我是Limyes
+我叫 XXX
+1990 年 1 月出生
+XXX 学校毕业
+自学前端半年
+希望应聘前端开发岗位
 
-### 技能介绍
+# 技能介绍
 
 熟悉 JavaScript CSS
 
-### 项目介绍
+# 项目介绍
 
 1. XXX 轮播
 2. XXX 简历
 3. XXX 画板
 
-### 联系方式
+# 联系方式
+
+- QQ xxxxxxxx
+- Email xxxxxxxx
+- 手机 xxxxxxx
+
+# 联系方式
+
+- QQ xxxxxxxx
+- Email xxxxxxxx
+- 手机 xxxxxxx
+
+# 联系方式
+
+- QQ xxxxxxxx
+- Email xxxxxxxx
+- 手机 xxxxxxx
+
+# 联系方式
+
+- QQ xxxxxxxx
+- Email xxxxxxxx
+- 手机 xxxxxxx
+
+# 联系方式
+
+- QQ xxxxxxxx
+- Email xxxxxxxx
+- 手机 xxxxxxx
+
+# 联系方式
+
+- QQ xxxxxxxx
+- Email xxxxxxxx
+- 手机 xxxxxxx
+
+# 联系方式
+
+- QQ xxxxxxxx
+- Email xxxxxxxx
+- 手机 xxxxxxx
+
+# 联系方式
 
 - QQ xxxxxxxx
 - Email xxxxxxxx
 - 手机 xxxxxxx
 `
-let result3 = `
+let css3 = `
 /*
  * 这就是我的会动的简历
  * 谢谢观看
  */
 `
-writeCode('', result1, ()=>{ // writeCode call the function
+
+writeCss('', css1, ()=>{ // writeCss call the function
   createPaper(() => {
-    writeMarkdown(mk, ()=> {
-      writeCode(result1, result2, ()=>{
-        MarkdownToHtml(()=>{
-          writeCode(result1 + result2, result3, ()=> {
+    writeMarkdown(md, ()=> {
+      writeCss(css1, css2, ()=>{
+        convertMarkdownToHtml(()=>{
+          writeCss(css1 + css2, css3, ()=> {
             console.log('完成')
           })
         })
@@ -123,6 +167,9 @@ writeCode('', result1, ()=>{ // writeCode call the function
     })
   })
 })
+
+
+
 
 function createPaper(fn){
   var paper = document.createElement('div') 
@@ -134,14 +181,12 @@ function createPaper(fn){
   fn && fn.call()
 }
 
-function MarkdownToHtml(fn){
+function convertMarkdownToHtml(fn){
   var div = document.createElement('div')  
   div.className = 'html markdown-body'
-  div.innerHTML = marked(mk)
+  div.innerHTML = marked(md)
   let markdownContainer = document.querySelector('#paper > .content')
   markdownContainer.replaceWith(div)
   fn && fn.call()
 }
-
-
 
